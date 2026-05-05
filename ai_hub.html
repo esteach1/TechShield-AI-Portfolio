@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI HUB | ENG ZAIN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+        
+        :root { --p: #3b82f6; --s: #ef4444; }
+        body { background-color: #000; color: #fff; font-family: 'Cairo', sans-serif; overflow-x: hidden; cursor: auto; }
+
+        /* خلفية مائية باسمك */
+        .zain-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; opacity: 0.05;
+            display: flex; flex-wrap: wrap; justify-content: space-around;
+            font-weight: 900; font-size: 12px; color: var(--p);
+        }
+
+        #canvas-container { position: fixed; top: 0; left: 0; z-index: -2; }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 2.5rem;
+        }
+
+        /* أثر الماوس الملون */
+        .mouse-trail {
+            position: fixed; width: 10px; height: 10px;
+            border-radius: 50%; pointer-events: none; z-index: 9999;
+            animation: trailFade 0.7s ease-out forwards;
+        }
+        @keyframes trailFade {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.1); opacity: 0; }
+        }
+
+        .section-title { font-size: 3rem; font-weight: 900; margin-bottom: 2rem; background: linear-gradient(to left, #fff, var(--p)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .link-btn { color: var(--p); font-weight: bold; text-decoration: underline; transition: 0.3s; }
+        .link-btn:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+    <div class="zain-bg" id="zain-pattern"></div>
+
+    <!-- Hero Section -->
+    <section class="h-screen flex flex-col justify-center items-center text-center px-6 relative">
+        <h1 class="text-7xl md:text-9xl font-black mb-6 tracking-tighter uppercase">AI <span class="text-blue-500 italic">SYSTEM</span></h1>
+        <p class="max-w-3xl text-gray-400 text-xl font-medium leading-relaxed">
+            استكشاف شامل لآفاق الذكاء الاصطناعي، من القوة التدميرية للإبداع إلى تحديات الأمان الرقمي. <br>
+            <span class="text-white italic">بإشراف المهندس أحمد زين</span>
+        </p>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-6 space-y-32 pb-32">
+        
+        <!-- سكشن الفوائد (موسع) -->
+        <section id="benefits" class="glass p-12 md:p-20">
+            <h2 class="section-title">ثورة الفوائد: كيف يغير الـ AI عالمنا؟</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="text-blue-500 font-black text-2xl">01</div>
+                        <p class="text-gray-300"><strong class="text-white">الطب الدقيق:</strong> لم يعد التشخيص يعتمد على البشر فقط؛ الـ AI يحلل صور الأشعة بدقة تتجاوز 99% ويكتشف الأمراض قبل ظهور أعراضها بسنوات.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-blue-500 font-black text-2xl">02</div>
+                        <p class="text-gray-300"><strong class="text-white">أتمتة الصناعة:</strong> تقليل الهالك البشري وزيادة الإنتاج بنسبة 400% من خلال الروبوتات التي تتعلم ذاتياً كيفية تحسين خطوط الإنتاج.</p>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="text-blue-500 font-black text-2xl">03</div>
+                        <p class="text-gray-300"><strong class="text-white">تحليل البيانات الضخمة:</strong> في ثوانٍ، يمكن للذكاء الاصطناعي معالجة تريليونات البيانات التي قد يحتاج البشر لمئات السنين لفهمها، مما يسرع الأبحاث العلمية.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-blue-500 font-black text-2xl">04</div>
+                        <p class="text-gray-300"><strong class="text-white">التعليم المخصص:</strong> أنظمة تتعلم نمط استيعاب الطالب وتعدل المنهج لتناسب سرعته الخاصة، مما ينهي عصر التعليم التقليدي الجامد.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- سكشن الأضرار (موسع) -->
+        <section id="risks" class="glass p-12 md:p-20 border-r-8 border-red-600/30">
+            <h2 class="section-title text-red-500">الوجه المظلم: مخاطر وجودية</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-400">
+                <div class="p-6 bg-red-500/5 rounded-2xl">
+                    <h3 class="text-white font-bold mb-4">التحيز والتمييز</h3>
+                    <p>خوارزميات قد تتبنى تحيزات بشرية في التوظيف أو القضاء، مما يؤدي لظلم ممنهج دون وعي بشري.</p>
+                </div>
+                <div class="p-6 bg-red-500/5 rounded-2xl">
+                    <h3 class="text-white font-bold mb-4">التزييف العميق</h3>
+                    <p>تكنولوجيا الـ Deepfake تهدد بانهيار الثقة في المحتوى المرئي، حيث يمكن تزوير أي فيديو لأي شخص بدقة مرعبة.</p>
+                </div>
+                <div class="p-6 bg-red-500/5 rounded-2xl">
+                    <h3 class="text-white font-bold mb-4">فقدان الوظائف</h3>
+                    <p>أتمتة الوظائف الذهنية (برمجة، كتابة، تصميم) قد تؤدي لفجوة اقتصادية عالمية إذا لم يتم الاستعداد لها.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- سكشن النماذج (مع الروابط) -->
+        <section id="models" class="py-10">
+            <h2 class="section-title text-center text-white">ترسانة الأدوات الذكية 2026</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Claude -->
+                <div class="glass p-8 hover:border-blue-500 transition">
+                    <h3 class="text-2xl font-bold mb-4">Claude 3.5 Sonnet</h3>
+                    <p class="text-gray-400 mb-6 text-sm">الأذكى في التحليل المنطقي وكتابة الأكواد البرمجية الطويلة بدقة متناهية.</p>
+                    <a href="https://claude.ai" target="_blank" class="link-btn">زيارة النموذج</a>
+                </div>
+                <!-- Perplexity -->
+                <div class="glass p-8 hover:border-blue-500 transition">
+                    <h3 class="text-2xl font-bold mb-4">Perplexity AI</h3>
+                    <p class="text-gray-400 mb-6 text-sm">محرك بحث ذكي يقدم لك الإجابة مع المصادر الحقيقية مباشرة دون إعلانات.</p>
+                    <a href="https://perplexity.ai" target="_blank" class="link-btn">زيارة النموذج</a>
+                </div>
+                <!-- Cursor -->
+                <div class="glass p-8 border-t-4 border-blue-500">
+                    <h3 class="text-2xl font-bold mb-4">Cursor Code Editor</h3>
+                    <p class="text-gray-400 mb-6 text-sm">مستقبل البرمجة؛ محرر أكواد يفهم مشروعك بالكامل ويبني لك دوال معقدة بكلمة واحدة.</p>
+                    <a href="https://cursor.sh" target="_blank" class="link-btn">تحميل الأداة</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="py-20 text-center opacity-40">
+        <p>CREATED BY <span class="font-black text-white">ENG. ZAIN</span> - 2026</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // 1. Three.js Background (Space Particles)
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        const starGeo = new THREE.BufferGeometry();
+        const starCount = 2000;
+        const posArray = new Float32Array(starCount * 3);
+        for(let i=0; i<starCount*3; i++) posArray[i] = (Math.random() - 0.5) * 10;
+        starGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const starMat = new THREE.PointsMaterial({ size: 0.015, color: '#3b82f6' });
+        const stars = new THREE.Points(starGeo, starMat);
+        scene.add(stars);
+        camera.position.z = 3;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            stars.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // 2. Mouse Trail (أثر الألوان المختلطة)
+        const colors = ['#3b82f6', '#ef4444', '#fff'];
+        window.addEventListener('mousemove', (e) => {
+            const trail = document.createElement('div');
+            trail.className = 'mouse-trail';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            trail.style.background = colors[Math.floor(Math.random() * colors.length)];
+            trail.style.boxShadow = `0 0 15px ${trail.style.background}`;
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 700);
+        });
+
+        // 3. Zain Background Pattern
+        const pattern = document.getElementById('zain-pattern');
+        for(let i=0; i<100; i++) {
+            const div = document.createElement('div');
+            div.innerText = "ENG_ZAIN_AI";
+            pattern.appendChild(div);
+        }
+    </script>
+</body>
+</html>
